@@ -70,7 +70,7 @@ app.get('/getFees', async (req, res) => {
 
 app.get('/getInfo', async (req, res) => {
 	const info = await lnService.getWalletInfo({lnd})
-	res.send({'data':info})
+	res.send(JSON.stringify({'data':info}, null, 2) + '\n')
 })
 
 app.listen(port, () => console.log(`Listening on http://localhost:${port}/`))
