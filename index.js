@@ -3,12 +3,14 @@ const lnService = require('ln-service');
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
+const fs = require('fs')
+const path = require('path')
 
-const certBase64 = ''
-const macaroonBase64 = ''
+const pathToCert = '/home/krtk6160/.lnd/tls.cert'
+const pathToMacaroon = '/home/krtk6160/.lnd/data/chain/bitcoin/testnet/admin.macaroon'
 
-const cert = process.env.CERT || certBase64
-const macaroon = process.env.MACAROON || macaroonBase64
+const cert = process.env.CERT || fs.readFileSync(path.resolve(pathToCert)).toString('base64')
+const macaroon = process.env.MACAROON || fs.readFileSync(path.resolve(pathToMacaroon)).toString('base64')
 
 const {lnd} = lnService.authenticatedLndGrpc({
 	cert: cert,
@@ -63,7 +65,7 @@ app.get('/getFees', async (req, res) => {
 
 	paths.length = (paths.length > numResult ? numResult : paths.length)
 
-	res.send({'routes':paths})
+	res.send(JSON.stringify({'routes':paths}, null, 2) + '\n')
 })
 
 app.get('/getInfo', async (req, res) => {
