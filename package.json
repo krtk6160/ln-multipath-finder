@@ -12,7 +12,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "grpc": "^1.24.2",
+    "grpc": "^1.24.9",
     "ln-service": "^47.16.0",
     "nodemon": "^2.0.2"
   }
